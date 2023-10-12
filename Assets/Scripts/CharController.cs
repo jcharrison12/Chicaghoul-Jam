@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,7 @@ public class CharController : MonoBehaviour
 {
     public GameObject character;
 
-    public float walkSpeed = 5.0f;
+    public float walkSpeed = 5.0f; //normal speed of the character
     public float chaseSpeed = 8.0f; //speed increases while chasing
 
     Vector2 movement;
@@ -29,8 +30,8 @@ public class CharController : MonoBehaviour
         Left,
         Right,
     }
-    CharacterFacing currentDirection = CharacterFacing.Down;
-    MovementPath originalMovementPath = MovementPath.CirclePath;
+    CharacterFacing currentDirection = CharacterFacing.Down; //which way the character is facing (used to determine vision cone)
+    MovementPath originalMovementPath = MovementPath.CirclePath; //the neutral walking pattern the character uses
     MovementPath currentMovementPath = MovementPath.CirclePath;
     //Fixed Movement Time
     float currentMovementTime = 0;
@@ -62,17 +63,21 @@ public class CharController : MonoBehaviour
                 PlayerMovement();
                 break;
             case MovementPath.ChaseTarget:
-                if (WithinSight(playerPosition, currentPosition, currentDirection, visionRadius))
+                //If the character is already chasing the player, you need to change how the character
+                //determines if the enemy you don't want to use WithinSight anymore, trust me.
+                //Instead use a function that's based on distance
+                if (WithinChase(playerPosition, currentPosition, visionRadius))
 				{
-                    //TODO move to target
+                    MoveToTarget(currentPosition, playerPosition);
                 }
                 else
 				{
+                    //stop chasing and switch back to original movement
                     currentMovementPath = originalMovementPath;
                 }
                 break;
             case MovementPath.CirclePath:
-                //Check if the player happens to be within sight of this enemy             
+                //Check if the player happens to be within sight of this enemy, then switch to chasing mode             
                 if (WithinSight(playerPosition, currentPosition, currentDirection, visionRadius))
                 {
                     currentMovementTime = 0;
@@ -87,7 +92,6 @@ public class CharController : MonoBehaviour
 
                     if (currentMovementTime >= maxMovementTime)
                     {
-                        Debug.Log("change direction");
                         NextDirection();
                         currentMovementTime = 0;
                     }
@@ -107,7 +111,6 @@ public class CharController : MonoBehaviour
                             x = -1;
                             break;
                     }
-                    Debug.Log("AI movment " + x + ", " + y);
                     movement.x = x;
                     movement.y = y;
                 }
@@ -115,8 +118,49 @@ public class CharController : MonoBehaviour
         }
     }
 
+    private void MoveToTarget(Vector2 currentPosition, Vector2 targetPosition)
+	{
 
-    private void NextDirection() //TODO call this function when an enemy walks into collision object
+        float distanceX =
+            Vector2.Distance(
+                new Vector2(currentPosition.x, 0),
+                new Vector2(targetPosition.x, 0));
+
+        float distanceY =
+            Vector2.Distance(
+                new Vector2(0, currentPosition.y),
+                new Vector2(0, targetPosition.y));
+
+        Vector2 motion = Vector2.zero;
+        if (distanceX <= 1 && distanceY <= 1)
+        {
+            //TODO character has caught or is close enough to catching the player
+        }
+        else
+        {
+            if (distanceX > 0)
+            {
+                motion.x = targetPosition.x - currentPosition.x;
+                motion.x = Math.Min(1, Math.Max(-1, motion.x)); // Clamp it to -1..1
+            }
+            else
+            {
+                motion.x = 0;
+            }
+            if (distanceY > 0)
+            {
+                motion.y = targetPosition.y - currentPosition.y;
+                motion.y = Math.Min(1, Math.Max(-1, motion.y)); // Ditto for Y
+            }
+            else
+            {
+                motion.y = 0;
+            }
+
+            movement = motion; //update movement
+        }
+    }
+    private void NextDirection() //TODO call this function when an enemy walks into collision object so they don't just rub up against it for a while
     {
         switch (currentDirection)
         {
@@ -159,34 +203,33 @@ public class CharController : MonoBehaviour
         if (x > 0)
         {
             currentDirection = CharacterFacing.Right;
-            Debug.Log("right");
         }
         else if (x < 0)
         {
             currentDirection = CharacterFacing.Left;
-            Debug.Log("Left");
         }
         else if (y > 0)
         {
             currentDirection = CharacterFacing.Up;
-            Debug.Log("Up");
         }
         else if (y < 0)
         {
             currentDirection = CharacterFacing.Down;
-            Debug.Log("Down");
-        }
-        else
-        {
-            Debug.Log(currentDirection.ToString());
         }
     }
 
+    public bool WithinChase(Vector2 targetPosition, Vector2 chaserPosition, int VisionRadius)
+    {
+        float distance = Vector2.Distance(
+                    chaserPosition,
+                    targetPosition);
 
+        return distance < VisionRadius + (VisionRadius * .5f);
+    }
 
     public bool WithinSight(Vector2 targetPosition, Vector2 watcherPosition, CharacterFacing watcherDirection, int VisionRadius)
     {
-        float vFrac = 0;
+        float vFrac;
         float confFract = 2f;
 
         if (watcherDirection == CharacterFacing.Down)
@@ -252,7 +295,16 @@ public class CharController : MonoBehaviour
     void FixedUpdate()
     {
 
-        character.transform.Translate(Vector3.right * movement.x * walkSpeed * Time.deltaTime);
-        character.transform.Translate(Vector3.up * movement.y * walkSpeed * Time.deltaTime);
+        //Change walking speed based on behavior
+        float currentSpeed = walkSpeed;
+        switch (currentMovementPath)
+		{
+            case MovementPath.ChaseTarget:
+                currentSpeed = chaseSpeed;
+                break;
+		}
+
+        character.transform.Translate(Vector3.right * movement.x * currentSpeed * Time.deltaTime);
+        character.transform.Translate(Vector3.up * movement.y * currentSpeed * Time.deltaTime);
     }
 }
