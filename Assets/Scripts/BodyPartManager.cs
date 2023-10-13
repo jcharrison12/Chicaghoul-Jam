@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BodyPartManager : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+{ 
+    public List<BodyPartInstance> bodyParts = new();
 
-    // Update is called once per frame
-    void Update()
+    void Awake()
     {
-        
+        DontDestroyOnLoad(this.gameObject);
+    }
+        public void AddItem(BodyPartInstance bpToAdd)
+    {
+        bodyParts.Add(bpToAdd);
     }
 }
