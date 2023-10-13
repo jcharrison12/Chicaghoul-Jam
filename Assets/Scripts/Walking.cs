@@ -26,7 +26,13 @@ public class Walking : MonoBehaviour
             movement.y = 0;
         }
         
+ //Detect when the A arrow key is pressed down
+        if (Input.GetKeyDown(KeyCode.R))
+            Debug.Log("A key was pressed.");
 
+        //Detect when the A arrow key has been released
+        if (Input.GetKeyUp(KeyCode.R))
+            Debug.Log("A key was released.");
     }
 
     public void FixedUpdate()
