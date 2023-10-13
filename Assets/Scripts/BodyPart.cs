@@ -2,10 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BodyPart
+[CreateAssetMenu]
+public class BodyPart: ScriptableObject
 {
-    public enum bpType {brain, face, arm, body, leg};
-    public enum bpQuality {great, good, bad};
-    public Sprite bpSprite;
-
+    [SerializeField]
+    public enum PartOption { brain, face, arm, body, leg }
+    public PartOption part;
+    public int quality;
+    public Sprite icon;
+    [TextArea]
+    public string epitaph;
+   
 }

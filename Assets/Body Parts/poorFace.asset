@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c23babc2bb7894b5fbde22a4736e3d7a, type: 3}
+  m_Name: poorFace
+  m_EditorClassIdentifier: 
+  part: 1
+  quality: 0
+  icon: {fileID: 21300000, guid: d7c9753b5cfa7384985ad5f1691185c2, type: 3}
+  epitaph: 
