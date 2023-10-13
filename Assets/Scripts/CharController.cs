@@ -5,23 +5,30 @@ using UnityEngine;
 
 public class CharController : MonoBehaviour
 {
-    public GameObject character;
+    public GameObject target;
+    public float walkSpeed = 3.0f; //normal speed of the character
+    public float chaseSpeed = 4.0f; //speed increases while chasing
+    public MovementPath originalMovementPath = MovementPath.CirclePath; //the neutral walking pattern the character uses
+    public int visionRadius = 2; //how far the character can see in front of them
 
-    public float walkSpeed = 5.0f; //normal speed of the character
-    public float chaseSpeed = 8.0f; //speed increases while chasing
+    private MovementPath currentMovementPath = MovementPath.CirclePath;
 
-    Vector2 movement;
+    private Vector2 movement; //public so EnemyWalking.cs can access it
 
-    int visionRadius = 10; //how far the character can see in front of them
+    public Vector2 Movement
+	{
+		get
+		{
+            return movement;
+		}
+	}
 
     public enum MovementPath
     {
         None,
         PlayerControlled,
         CirclePath,
-        CirclePathWait,
         ChaseTarget,
-        Reset,
     }
     public enum CharacterFacing
     {
@@ -31,17 +38,17 @@ public class CharController : MonoBehaviour
         Right,
     }
     CharacterFacing currentDirection = CharacterFacing.Down; //which way the character is facing (used to determine vision cone)
-    MovementPath originalMovementPath = MovementPath.CirclePath; //the neutral walking pattern the character uses
-    MovementPath currentMovementPath = MovementPath.CirclePath;
+
     //Fixed Movement Time
     float currentMovementTime = 0;
     float maxMovementTime = 5f;
 
-    Vector2 playerPosition
+
+    Vector2 targetPosition
 	{
         get
 		{
-            return new Vector2(0, 0); //TODO how do you get the player position?
+            return target.transform.position; 
 		}
 	}
 
@@ -49,13 +56,17 @@ public class CharController : MonoBehaviour
 	{
         get
 		{
-            return new Vector2(character.transform.position.x, character.transform.position.y);
+            return transform.position; 
         }
 	}
 
-    void Update()
-    {
+	public void Start()
+	{
+        currentMovementPath = originalMovementPath;
+    }
 
+	void Update()
+    {
 
         switch (currentMovementPath)
         {
@@ -66,9 +77,9 @@ public class CharController : MonoBehaviour
                 //If the character is already chasing the player, you need to change how the character
                 //determines if the enemy you don't want to use WithinSight anymore, trust me.
                 //Instead use a function that's based on distance
-                if (WithinChase(playerPosition, currentPosition, visionRadius))
+                if (WithinChase(targetPosition, currentPosition, visionRadius))
 				{
-                    MoveToTarget(currentPosition, playerPosition);
+                    MoveToTarget(currentPosition, targetPosition);
                 }
                 else
 				{
@@ -78,7 +89,7 @@ public class CharController : MonoBehaviour
                 break;
             case MovementPath.CirclePath:
                 //Check if the player happens to be within sight of this enemy, then switch to chasing mode             
-                if (WithinSight(playerPosition, currentPosition, currentDirection, visionRadius))
+                if (WithinSight(targetPosition, currentPosition, currentDirection, visionRadius))
                 {
                     currentMovementTime = 0;
                     currentMovementPath = MovementPath.ChaseTarget;
@@ -165,15 +176,19 @@ public class CharController : MonoBehaviour
         switch (currentDirection)
         {
             case CharacterFacing.Up:
+                Debug.Log("change");
                 currentDirection = CharacterFacing.Right;
                 break;
             case CharacterFacing.Right:
+                Debug.Log("change");
                 currentDirection = CharacterFacing.Down;
                 break;
             case CharacterFacing.Down:
+                Debug.Log("change");
                 currentDirection = CharacterFacing.Left;
                 break;
             case CharacterFacing.Left:
+                Debug.Log("change");
                 currentDirection = CharacterFacing.Up;
                 break;
         }
@@ -185,7 +200,7 @@ public class CharController : MonoBehaviour
         movement.x = Input.GetAxis("Horizontal");
         movement.y = Input.GetAxis("Vertical");
 
-        Debug.Log("player movment " + movement.x + ", " + movement.y);
+       // Debug.Log("player movment " + movement.x + ", " + movement.y);
 
         if (movement.y != 0)
         {
@@ -294,7 +309,6 @@ public class CharController : MonoBehaviour
 
     void FixedUpdate()
     {
-
         //Change walking speed based on behavior
         float currentSpeed = walkSpeed;
         switch (currentMovementPath)
@@ -304,7 +318,7 @@ public class CharController : MonoBehaviour
                 break;
 		}
 
-        character.transform.Translate(Vector3.right * movement.x * currentSpeed * Time.deltaTime);
-        character.transform.Translate(Vector3.up * movement.y * currentSpeed * Time.deltaTime);
+        transform.Translate(Vector3.right * movement.x * currentSpeed * Time.deltaTime);
+        transform.Translate(Vector3.up * movement.y * currentSpeed * Time.deltaTime);
     }
 }

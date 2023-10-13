@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class Walking : MonoBehaviour
+public class EnemyWalking : MonoBehaviour
 {
 
     Animator anim;
@@ -14,20 +14,7 @@ public class Walking : MonoBehaviour
 
     public void Update()
     {
-        
-        movement.x = Input.GetAxis("Horizontal");
-        movement.y = Input.GetAxis("Vertical");
-
-        if (movement.y != 0)
-        {
-            movement.x = 0;
-        }
-        if (movement.x != 0)
-        {
-            movement.y = 0;
-        }
-        
-
+        movement = GetComponent<CharController>().Movement;
     }
 
     public void FixedUpdate()
