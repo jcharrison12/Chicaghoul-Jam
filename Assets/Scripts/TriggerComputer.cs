@@ -7,8 +7,11 @@ public class TriggerComputer : MonoBehaviour
     public Canvas promptcanvas;
     public TextMeshProUGUI prompt;
     public Canvas monsterGUI;
+    public GameObject player;
     public bool computerOpen;
     public bool customSession;
+    public CustomizeSelection gridlogic;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +40,7 @@ public class TriggerComputer : MonoBehaviour
             promptcanvas.gameObject.SetActive(true);
             prompt.gameObject.SetActive(true);
             computerOpen = true;
+            
            
         }
     }
@@ -46,6 +50,7 @@ public class TriggerComputer : MonoBehaviour
         {
             promptcanvas.gameObject.SetActive(false);
             prompt.gameObject.SetActive(false);
+            computerOpen = false;
         }
     }
 
@@ -56,6 +61,9 @@ public class TriggerComputer : MonoBehaviour
         computerOpen = false;
         promptcanvas.gameObject.SetActive(false);
         prompt.gameObject.SetActive(false);
+        player.gameObject.SetActive(false);
+        gridlogic.LoadGrid();
+        gridlogic.HighlightSelectInitial();
 
     }
 
@@ -63,7 +71,9 @@ public class TriggerComputer : MonoBehaviour
     {
         monsterGUI.gameObject.SetActive(false);
         customSession = false;
+        computerOpen = true;
         promptcanvas.gameObject.SetActive(true);
         prompt.gameObject.SetActive(true);
+        player.gameObject.SetActive(true);
     }
 }
