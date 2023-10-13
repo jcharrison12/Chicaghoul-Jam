@@ -6,10 +6,12 @@ using UnityEngine;
 public class CharController : MonoBehaviour
 {
     public GameObject target;
-    public float walkSpeed = 3.0f; //normal speed of the character
-    public float chaseSpeed = 4.0f; //speed increases while chasing
+    public float walkSpeed = 2.0f; //normal speed of the character
+    public float chaseSpeed = 3.0f; //speed increases while chasing
     public MovementPath originalMovementPath = MovementPath.CirclePath; //the neutral walking pattern the character uses
-    public int visionRadius = 2; //how far the character can see in front of them
+    public int visionRadius = 4; //how far the character can see in front of them
+    public int chaseRadius = 2; //how close the enemy needs to be to continue to chase
+    public float maxMovementTime = 3f; //how long the enemy will walk before changing direction
 
     private MovementPath currentMovementPath = MovementPath.CirclePath;
 
@@ -41,7 +43,6 @@ public class CharController : MonoBehaviour
 
     //Fixed Movement Time
     float currentMovementTime = 0;
-    float maxMovementTime = 5f;
 
 
     Vector2 targetPosition
@@ -77,7 +78,7 @@ public class CharController : MonoBehaviour
                 //If the character is already chasing the player, you need to change how the character
                 //determines if the enemy you don't want to use WithinSight anymore, trust me.
                 //Instead use a function that's based on distance
-                if (WithinChase(targetPosition, currentPosition, visionRadius))
+                if (WithinChase(targetPosition, currentPosition, chaseRadius))
 				{
                     MoveToTarget(currentPosition, targetPosition);
                 }
@@ -96,7 +97,8 @@ public class CharController : MonoBehaviour
                 }
                 else
                 {
-                    float elapsed = Time.fixedDeltaTime;
+                   // float elapsed = Time.fixedDeltaTime;
+                    float elapsed = Time.deltaTime;
                     currentMovementTime += elapsed;
                     float x = 0;
                     float y = 0;

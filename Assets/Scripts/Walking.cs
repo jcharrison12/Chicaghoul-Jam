@@ -3,9 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 public class Walking : MonoBehaviour
 {
+    public float maxDigTime = 3f;
+
 
     Animator anim;
     Vector2 movement;
+
+    public enum TerryBehavior
+    {
+        None,
+        Digging,
+    }
+
+    private TerryBehavior currentBehavior = TerryBehavior.None;
+    private float currentDigTime = 0;
 
     public void Start()
     {
@@ -14,26 +25,72 @@ public class Walking : MonoBehaviour
 
     public void Update()
     {
-        
-        movement.x = Input.GetAxis("Horizontal");
-        movement.y = Input.GetAxis("Vertical");
-
-        if (movement.y != 0)
+        switch (currentBehavior)
         {
-            movement.x = 0;
+            case TerryBehavior.None:
+                movement.x = Input.GetAxis("Horizontal");
+                movement.y = Input.GetAxis("Vertical");
+                if (movement.y != 0)
+                {
+                    movement.x = 0;
+                }
+                if (movement.x != 0)
+                {
+                    movement.y = 0;
+                }
+                if (Input.GetKey(KeyCode.F))
+                {
+                    Debug.Log("key down");
+                    currentBehavior = TerryBehavior.Digging;
+                }
+                break;
+            case TerryBehavior.Digging:
+                float elapsed = Time.deltaTime;
+                currentDigTime += elapsed;
+                if (currentDigTime >= maxDigTime)
+                {
+                    TerryDigsUpBodyPart();
+                    currentDigTime = 0;
+                }
+                if (!Input.GetKey(KeyCode.F))
+                {
+                    Debug.Log("key up");
+                    StopDigging();
+                }
+                break;
         }
-        if (movement.x != 0)
-        {
-            movement.y = 0;
-        }
-        
+    }
 
+    private void StopDigging()
+	{
+        currentBehavior = TerryBehavior.None;
+        currentDigTime = 0;
+        anim.StopPlayback();
+        Debug.Log("STOPPPPPPPPPPPPPPP!!");
+    }
+
+    private void TerryDigsUpBodyPart()
+    {
+        StopDigging();
+        Debug.Log("BODY PART DUG UP");
     }
 
     public void FixedUpdate()
     {
-        anim.SetFloat("horizontal_axis", movement.x);
-        anim.SetFloat("vertical_axis", movement.y);
+        switch(currentBehavior)
+		{
+            case TerryBehavior.None:
+                Debug.Log("Walking");
+                anim.SetFloat("horizontal_axis", movement.x);
+                anim.SetFloat("vertical_axis", movement.y);
+                break;
+            case TerryBehavior.Digging:
+                Debug.Log("Digging");
+                anim.Play("Digging-right");
+                break;
+
+		}
+
     }
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
