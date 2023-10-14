@@ -59,6 +59,7 @@ public class Walking : MonoBehaviour
                 }
                 break;
         }
+//<<<<<<< HEAD
     }
 
     private void StopDigging()
@@ -73,6 +74,20 @@ public class Walking : MonoBehaviour
     {
         StopDigging();
         Debug.Log("BODY PART DUG UP");
+//=======
+        if (movement.x != 0)
+        {
+            movement.y = 0;
+        }
+        
+ //Detect when the A arrow key is pressed down
+        if (Input.GetKeyDown(KeyCode.R))
+            Debug.Log("A key was pressed.");
+
+        //Detect when the A arrow key has been released
+        if (Input.GetKeyUp(KeyCode.R))
+            Debug.Log("A key was released.");
+//>>>>>>> main
     }
 
     public void FixedUpdate()

@@ -8,4 +8,13 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Scenes/graveyard-scene1.unity
+    guid: c323984190e8adf4c887251b44b32227
+  - enabled: 1
+    path: Assets/Scenes/MonsterCustomize.unity
+    guid: 1c1f82c71832973449646fad771727bb
+  - enabled: 1
+    path: Assets/Scenes/title-screen.unity
+    guid: a5b207374be26434ebf6c138b8614a72
   m_configObjects: {}
