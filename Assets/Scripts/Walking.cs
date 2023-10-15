@@ -67,6 +67,8 @@ public class Walking : MonoBehaviour
         currentBehavior = TerryBehavior.None;
         currentDigTime = 0;
         anim.StopPlayback();
+        anim.Rebind();
+        anim.SetFloat("Digging-right", 0);
         Debug.Log("STOPPPPPPPPPPPPPPP!!");
     }
 
