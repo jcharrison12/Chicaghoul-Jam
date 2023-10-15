@@ -1,10 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 public class Walking : MonoBehaviour
 {
     public float maxDigTime = 3f;
 
+
+    public List<BodyPart> inventoryList;
+    public List<BodyPart> bpOptions;
 
     Animator anim;
     Vector2 movement;
@@ -17,6 +22,7 @@ public class Walking : MonoBehaviour
 
     private TerryBehavior currentBehavior = TerryBehavior.None;
     private float currentDigTime = 0;
+    private GameObject currentGrave = null;
 
     public void Start()
     {
@@ -40,7 +46,6 @@ public class Walking : MonoBehaviour
                 }
                 if (Input.GetKey(KeyCode.F))
                 {
-                    Debug.Log("key down");
                     currentBehavior = TerryBehavior.Digging;
                 }
                 break;
@@ -49,12 +54,12 @@ public class Walking : MonoBehaviour
                 currentDigTime += elapsed;
                 if (currentDigTime >= maxDigTime)
                 {
-                    TerryDigsUpBodyPart();
+                    StopDigging();
+                    TerryDigsUpBodyPart(currentGrave);
                     currentDigTime = 0;
                 }
                 if (!Input.GetKey(KeyCode.F))
                 {
-                    Debug.Log("key up");
                     StopDigging();
                 }
                 break;
@@ -68,28 +73,48 @@ public class Walking : MonoBehaviour
         currentDigTime = 0;
         anim.StopPlayback();
         anim.Rebind();
-        anim.SetFloat("Digging-right", 0);
-        Debug.Log("STOPPPPPPPPPPPPPPP!!");
     }
 
-    private void TerryDigsUpBodyPart()
-    {
-        StopDigging();
-        Debug.Log("BODY PART DUG UP");
-//=======
-        if (movement.x != 0)
-        {
-            movement.y = 0;
-        }
-        
- //Detect when the A arrow key is pressed down
-        if (Input.GetKeyDown(KeyCode.R))
-            Debug.Log("A key was pressed.");
 
-        //Detect when the A arrow key has been released
-        if (Input.GetKeyUp(KeyCode.R))
-            Debug.Log("A key was released.");
-//>>>>>>> main
+    private void TerryDigsUpBodyPart(GameObject dugUpGrave)
+    {
+        if(dugUpGrave != null)
+		{
+            DigInteract digInteract = dugUpGrave.GetComponent<DigInteract>();
+            if(!digInteract.dugUp)
+			{
+                digInteract.dugUp = true;
+                GenerateRandomBodyPart();
+                Debug.Log("BODY PART DUG UP");
+            }
+        }
+    }
+
+    private void GenerateRandomBodyPart()
+    {
+        int randomNumber = Random.Range(0, 5);
+        BodyPart.PartOption tempPart = (BodyPart.PartOption)randomNumber;
+        BodyPart newBodyPart = ScriptableObject.CreateInstance<BodyPart>();
+        List<BodyPart> results = bpOptions.FindAll(
+          delegate (BodyPart bp)
+          {
+              return bp.part == tempPart;
+          }
+          );
+        Debug.Log("results " + results.Count + " " + results);
+        newBodyPart = results[Random.Range(0, results.Count)];
+        Debug.Log(newBodyPart);
+        inventoryList.Add(newBodyPart);
+        ShowBodyPart(newBodyPart);
+    }
+
+    private void ShowBodyPart(BodyPart newBodyPart)
+	{
+        Debug.Log("show body part");
+        GameObject cellObject = new GameObject();
+        cellObject.AddComponent<Image>();
+        cellObject.GetComponent<Image>().sprite = newBodyPart.icon;
+        cellObject.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(50, 50);
     }
 
     public void FixedUpdate()
@@ -109,6 +134,23 @@ public class Walking : MonoBehaviour
 		}
 
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Grave"))
+        {
+            currentGrave = other.gameObject;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Grave"))
+        {
+            currentGrave = null;
+        }
+    }
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     //{
