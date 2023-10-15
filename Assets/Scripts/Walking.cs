@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 public class Walking : MonoBehaviour
 {
     public float maxDigTime = 3f;
@@ -8,6 +10,7 @@ public class Walking : MonoBehaviour
 
     Animator anim;
     Vector2 movement;
+    public UnityEngine.SceneManagement.Scene scene;
 
     public enum TerryBehavior
     {
@@ -21,6 +24,7 @@ public class Walking : MonoBehaviour
     public void Start()
     {
         anim = GetComponent<Animator>();
+        scene = SceneManager.GetActiveScene();
     }
 
     public void Update()
@@ -38,26 +42,30 @@ public class Walking : MonoBehaviour
                 {
                     movement.y = 0;
                 }
-                if (Input.GetKey(KeyCode.F))
+                if (Input.GetKey(KeyCode.F) && (scene.name == "graveyard-scene1"))
                 {
                     Debug.Log("key down");
                     currentBehavior = TerryBehavior.Digging;
                 }
                 break;
             case TerryBehavior.Digging:
-                float elapsed = Time.deltaTime;
-                currentDigTime += elapsed;
-                if (currentDigTime >= maxDigTime)
-                {
-                    TerryDigsUpBodyPart();
-                    currentDigTime = 0;
-                }
-                if (!Input.GetKey(KeyCode.F))
-                {
-                    Debug.Log("key up");
-                    StopDigging();
-                }
-                break;
+                
+                
+                    float elapsed = Time.deltaTime;
+                    currentDigTime += elapsed;
+                    if (currentDigTime >= maxDigTime)
+                    {
+                        TerryDigsUpBodyPart();
+                        currentDigTime = 0;
+                    }
+                    if (!Input.GetKey(KeyCode.F))
+                    {
+                        Debug.Log("key up");
+                        StopDigging();
+                    }
+                
+                    break;
+                
         }
 //<<<<<<< HEAD
     }
@@ -97,7 +105,7 @@ public class Walking : MonoBehaviour
         switch(currentBehavior)
 		{
             case TerryBehavior.None:
-                Debug.Log("Walking");
+                //Debug.Log("Walking");
                 anim.SetFloat("horizontal_axis", movement.x);
                 anim.SetFloat("vertical_axis", movement.y);
                 break;
