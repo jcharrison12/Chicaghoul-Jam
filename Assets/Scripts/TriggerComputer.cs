@@ -11,6 +11,7 @@ public class TriggerComputer : MonoBehaviour
     public bool computerOpen;
     public bool customSession;
     public CustomizeSelection gridlogic;
+
     // Start is called before the first frame update
     void Start()
     {
