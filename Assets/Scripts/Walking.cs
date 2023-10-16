@@ -6,7 +6,6 @@ public class Walking : MonoBehaviour
     public float maxDigTime = 3f;
 
 
-    public List<BodyPart> inventoryList;
     public List<BodyPart> bpOptions;
 
     Animator anim;
@@ -20,6 +19,7 @@ public class Walking : MonoBehaviour
 
     private TerryBehavior currentBehavior = TerryBehavior.None;
     private float currentDigTime = 0;
+    private GameObject dugUpGrave = null;
 
     public void Start()
     {
@@ -89,6 +89,20 @@ public class Walking : MonoBehaviour
         }
     }
 
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        Debug.Log("GameObject2 collided with " + col.name);
+        if(col.gameObject.tag == "Grave")
+            dugUpGrave = col.gameObject;
+    }
+
+    void OnTriggerExit2D(Collider2D col)
+    {
+        Debug.Log("GameObject2 collided with " + col.name);
+        dugUpGrave = null;
+    }
+
     private void GenerateRandomBodyPart()
     {
         int randomNumber = Random.Range(0, 5);
@@ -103,15 +117,19 @@ public class Walking : MonoBehaviour
         Debug.Log("results " + results.Count + " " + results);
         newBodyPart = results[Random.Range(0, results.Count)];
         Debug.Log(newBodyPart);
-        inventoryList.Add(newBodyPart);
+        AddBodyPart(newBodyPart);
         ShowBodyPart(newBodyPart);
     }
 
-        //Detect when the A arrow key has been released
-        if (Input.GetKeyUp(KeyCode.R))
-            Debug.Log("A key was released.");
-//>>>>>>> main
+    void AddBodyPart(BodyPart newBodyPart)
+    {
     }
+
+    void ShowBodyPart(BodyPart newBodyPart)
+	{
+
+	}
+
 
     public void FixedUpdate()
     {
