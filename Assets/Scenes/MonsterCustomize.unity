@@ -5733,7 +5733,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4f33cf84fb57a42aabff7a69a32c696a, type: 2}
   computerGrid: {fileID: 718457519}
   computerUI: {fileID: 165662359}
-  activeCellNum: 0
 --- !u!1 &732114739
 GameObject:
   m_ObjectHideFlags: 0
@@ -7671,8 +7670,6 @@ MonoBehaviour:
   chaseSpeed: 8
   originalMovementPath: 1
   visionRadius: 5
-  chaseRadius: 2
-  maxMovementTime: 3
 --- !u!61 &1357174663
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7709,7 +7706,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 2}
+    oldSize: {x: 3.2, y: 3.2}
     newSize: {x: 0.61764705, y: 0.9411765}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -7757,7 +7754,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22c7c8ff747294a5992faa3cd216b60b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDigTime: 3
 --- !u!210 &1357174666
 SortingGroup:
   m_ObjectHideFlags: 0

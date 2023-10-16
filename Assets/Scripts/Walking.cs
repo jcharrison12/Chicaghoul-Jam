@@ -6,6 +6,9 @@ public class Walking : MonoBehaviour
     public float maxDigTime = 3f;
 
 
+    public List<BodyPart> inventoryList;
+    public List<BodyPart> bpOptions;
+
     Animator anim;
     Vector2 movement;
 
@@ -74,17 +77,35 @@ public class Walking : MonoBehaviour
 
     private void TerryDigsUpBodyPart()
     {
-        StopDigging();
-        Debug.Log("BODY PART DUG UP");
-//=======
-        if (movement.x != 0)
-        {
-            movement.y = 0;
+        if(dugUpGrave != null)
+		{
+            DigInteract digInteract = dugUpGrave.GetComponent<DigInteract>();
+            if(!digInteract.dugUp)
+			{
+                digInteract.dugUp = true;
+                GenerateRandomBodyPart();
+                Debug.Log("BODY PART DUG UP");
+            }
         }
-        
- //Detect when the A arrow key is pressed down
-        if (Input.GetKeyDown(KeyCode.R))
-            Debug.Log("A key was pressed.");
+    }
+
+    private void GenerateRandomBodyPart()
+    {
+        int randomNumber = Random.Range(0, 5);
+        BodyPart.PartOption tempPart = (BodyPart.PartOption)randomNumber;
+        BodyPart newBodyPart = ScriptableObject.CreateInstance<BodyPart>();
+        List<BodyPart> results = bpOptions.FindAll(
+          delegate (BodyPart bp)
+          {
+              return bp.part == tempPart;
+          }
+          );
+        Debug.Log("results " + results.Count + " " + results);
+        newBodyPart = results[Random.Range(0, results.Count)];
+        Debug.Log(newBodyPart);
+        inventoryList.Add(newBodyPart);
+        ShowBodyPart(newBodyPart);
+    }
 
         //Detect when the A arrow key has been released
         if (Input.GetKeyUp(KeyCode.R))
