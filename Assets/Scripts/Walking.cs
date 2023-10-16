@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class Walking : MonoBehaviour
 {
+    public static List<BodyPart> collectedBodyParts;
     public float maxDigTime = 3f;
 
 
-    public List<BodyPart> inventoryList;
     public List<BodyPart> bpOptions;
 
     Animator anim;
@@ -104,7 +104,7 @@ public class Walking : MonoBehaviour
         Debug.Log("results " + results.Count + " " + results);
         newBodyPart = results[Random.Range(0, results.Count)];
         Debug.Log(newBodyPart);
-        inventoryList.Add(newBodyPart);
+        collectedBodyParts.Add(newBodyPart);
         ShowBodyPart(newBodyPart);
     }
 

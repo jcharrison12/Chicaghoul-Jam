@@ -4798,7 +4798,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxDigTime: 3
-  inventoryList: []
   bpOptions:
   - {fileID: 11400000, guid: e68b5c042dbb443d5aea6670aaca7513, type: 2}
   - {fileID: 11400000, guid: 3f21d9c57163c444e9c803ff61ccf2ae, type: 2}
@@ -6397,6 +6396,10 @@ PrefabInstance:
     - target: {fileID: 6024539056007722735, guid: 50ce3cc5dfb7beb4d97851ff206ae59a, type: 3}
       propertyPath: m_TagString
       value: Grave
+      objectReference: {fileID: 0}
+    - target: {fileID: 6024539056007722735, guid: 50ce3cc5dfb7beb4d97851ff206ae59a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9138865921869312581, guid: 50ce3cc5dfb7beb4d97851ff206ae59a, type: 3}
       propertyPath: m_LocalPosition.x
