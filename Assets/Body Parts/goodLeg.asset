@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   part: 4
   quality: 1
-  icon: {fileID: 21300000, guid: c645b3946d207c340bba206605b2c274, type: 3}
+  icon: {fileID: 21300000, guid: b4f9db9f6ac5d4654996fa7ffad86313, type: 3}
   epitaph: 
