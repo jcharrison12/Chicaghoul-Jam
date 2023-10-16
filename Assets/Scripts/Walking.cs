@@ -1,18 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
-using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class Walking : MonoBehaviour
 {
-    public static List<BodyPart> collectedBodyParts;
     public float maxDigTime = 3f;
 
 
-    public List<BodyPart> bpOptions;
-
     Animator anim;
     Vector2 movement;
+    public UnityEngine.SceneManagement.Scene scene;
 
     public enum TerryBehavior
     {
@@ -22,11 +20,11 @@ public class Walking : MonoBehaviour
 
     private TerryBehavior currentBehavior = TerryBehavior.None;
     private float currentDigTime = 0;
-    private GameObject currentGrave = null;
 
     public void Start()
     {
         anim = GetComponent<Animator>();
+        scene = SceneManager.GetActiveScene();
     }
 
     public void Update()
@@ -44,25 +42,30 @@ public class Walking : MonoBehaviour
                 {
                     movement.y = 0;
                 }
-                if (Input.GetKey(KeyCode.F))
+                if (Input.GetKey(KeyCode.F) && (scene.name == "graveyard-scene1"))
                 {
+                    Debug.Log("key down");
                     currentBehavior = TerryBehavior.Digging;
                 }
                 break;
             case TerryBehavior.Digging:
-                float elapsed = Time.deltaTime;
-                currentDigTime += elapsed;
-                if (currentDigTime >= maxDigTime)
-                {
-                    StopDigging();
-                    TerryDigsUpBodyPart(currentGrave);
-                    currentDigTime = 0;
-                }
-                if (!Input.GetKey(KeyCode.F))
-                {
-                    StopDigging();
-                }
-                break;
+                
+                
+                    float elapsed = Time.deltaTime;
+                    currentDigTime += elapsed;
+                    if (currentDigTime >= maxDigTime)
+                    {
+                        TerryDigsUpBodyPart();
+                        currentDigTime = 0;
+                    }
+                    if (!Input.GetKey(KeyCode.F))
+                    {
+                        Debug.Log("key up");
+                        StopDigging();
+                    }
+                
+                    break;
+                
         }
 //<<<<<<< HEAD
     }
@@ -73,48 +76,28 @@ public class Walking : MonoBehaviour
         currentDigTime = 0;
         anim.StopPlayback();
         anim.Rebind();
+        anim.SetFloat("Digging-right", 0);
+        Debug.Log("STOPPPPPPPPPPPPPPP!!");
     }
 
-
-    private void TerryDigsUpBodyPart(GameObject dugUpGrave)
+    private void TerryDigsUpBodyPart()
     {
-        if(dugUpGrave != null)
-		{
-            DigInteract digInteract = dugUpGrave.GetComponent<DigInteract>();
-            if(!digInteract.dugUp)
-			{
-                digInteract.dugUp = true;
-                GenerateRandomBodyPart();
-                Debug.Log("BODY PART DUG UP");
-            }
+        StopDigging();
+        Debug.Log("BODY PART DUG UP");
+//=======
+        if (movement.x != 0)
+        {
+            movement.y = 0;
         }
-    }
+        
+ //Detect when the A arrow key is pressed down
+        if (Input.GetKeyDown(KeyCode.R))
+            Debug.Log("A key was pressed.");
 
-    private void GenerateRandomBodyPart()
-    {
-        int randomNumber = Random.Range(0, 5);
-        BodyPart.PartOption tempPart = (BodyPart.PartOption)randomNumber;
-        BodyPart newBodyPart = ScriptableObject.CreateInstance<BodyPart>();
-        List<BodyPart> results = bpOptions.FindAll(
-          delegate (BodyPart bp)
-          {
-              return bp.part == tempPart;
-          }
-          );
-        Debug.Log("results " + results.Count + " " + results);
-        newBodyPart = results[Random.Range(0, results.Count)];
-        Debug.Log(newBodyPart);
-        collectedBodyParts.Add(newBodyPart);
-        ShowBodyPart(newBodyPart);
-    }
-
-    private void ShowBodyPart(BodyPart newBodyPart)
-	{
-        Debug.Log("show body part");
-        GameObject cellObject = new GameObject();
-        cellObject.AddComponent<Image>();
-        cellObject.GetComponent<Image>().sprite = newBodyPart.icon;
-        cellObject.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(50, 50);
+        //Detect when the A arrow key has been released
+        if (Input.GetKeyUp(KeyCode.R))
+            Debug.Log("A key was released.");
+//>>>>>>> main
     }
 
     public void FixedUpdate()
@@ -122,7 +105,7 @@ public class Walking : MonoBehaviour
         switch(currentBehavior)
 		{
             case TerryBehavior.None:
-                Debug.Log("Walking");
+                //Debug.Log("Walking");
                 anim.SetFloat("horizontal_axis", movement.x);
                 anim.SetFloat("vertical_axis", movement.y);
                 break;
@@ -134,23 +117,6 @@ public class Walking : MonoBehaviour
 		}
 
     }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Grave"))
-        {
-            currentGrave = other.gameObject;
-        }
-    }
-
-    void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Grave"))
-        {
-            currentGrave = null;
-        }
-    }
-
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     //{

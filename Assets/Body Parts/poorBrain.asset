@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c23babc2bb7894b5fbde22a4736e3d7a, type: 3}
   m_Name: poorBrain
   m_EditorClassIdentifier: 
-  id: 0
-  part: 
+  part: 0
   quality: 0
-  icon: {fileID: 21300000, guid: 015e9e178f2b1d842b148e5c0955b388, type: 3}
+  icon: {fileID: 21300000, guid: 27257c3cb98ab4e9e81e55a80d8eadb6, type: 3}
   epitaph: 
