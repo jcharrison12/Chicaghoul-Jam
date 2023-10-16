@@ -10,10 +10,14 @@ public class CustomizeSelection : MonoBehaviour
     public GameObject computerGrid;
     public TriggerComputer computerUI;
     public int activeCellNum = 0;
+    public GameObject Monster;
+    public List<BodyPart> bpScores = new List<BodyPart>();
+    public Sprite _checkSprite;
 
     // Start is called before the first frame update
     void Awake()
     {   //this code is for testing with random body parts, final code will take body parts from inventory script
+        
         for (int i = 0; i < 5; i++)
         {
             BodyPart.PartOption tempEnum = (BodyPart.PartOption)i;
@@ -33,18 +37,21 @@ public class CustomizeSelection : MonoBehaviour
     private void Update()
     {
         MoveHighlight();
+        ChoosePart();
     }
     public void LoadGrid()
     {
-        //Debug.Log("Is this working?");
-        Debug.Log("LoadGrid inventory list length is " + inventoryList.Count);
+        
+        
         for (int i = 0; i<inventoryList.Count; i++)
         {
-            Debug.Log("Is this working?");
+           
             GameObject cell = new GameObject(); //this is the base cell "location" theoretically controlled by the GridLayoutGroup
             GameObject cellObject = new GameObject(); //this is the actual object with image and BodyPart info
             //BodyPart cellBP = inventoryList[i];
             cellObject.AddComponent<Image>();
+            cellObject.AddComponent<BodyPartInstance>();
+            cellObject.GetComponent<BodyPartInstance>().bpType = inventoryList[i];
             //cellObject.AddComponent<SpriteRenderer>();
             cellObject.GetComponent<Image>().sprite = inventoryList[i].icon;
             cell.AddComponent<Image>();
@@ -53,7 +60,7 @@ public class CustomizeSelection : MonoBehaviour
             cell.GetComponent<Image>().color = tempColor;
             cell.transform.SetParent(computerGrid.transform, false);
             cellObject.transform.SetParent(cell.transform, false);
-            cellObject.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(30, 30);
+            cellObject.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(50, 50);
             var opacity = cellObject.GetComponent<Image>().color;
             opacity.a = .3f;
             cellObject.GetComponent<Image>().color = opacity;
@@ -121,6 +128,62 @@ public class CustomizeSelection : MonoBehaviour
             temp.a = 1f;
             computerGrid.transform.GetChild(activeCellNum).GetChild(0).GetComponent<Image>().color = temp;
         }
+    }
+    public void ChoosePart()
+    {
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            BodyPart.PartOption BPslot;
+            var selectionImg = computerGrid.transform.GetChild(activeCellNum).GetChild(0).GetComponent<Image>();
+            //var flipped = computerGrid.transform.GetChild(activeCellNum).GetChild(0).GetComponent<SpriteRenderer>().flipY;
+            var selection = computerGrid.transform.GetChild(activeCellNum).GetChild(0).GetComponent<BodyPartInstance>();
+            BPslot = selection.bpType.part;
+            var temp = Monster.transform.GetChild(0).GetComponent<Image>().color;
+            temp.a = 1f;
+            switch (BPslot)
+            {
+                case BodyPart.PartOption.brain:
+                    Monster.transform.GetChild(0).GetComponent<Image>().sprite = selectionImg.sprite;
+                    Monster.transform.GetChild(0).GetComponent<Image>().color = temp;
+                    break;
+                case BodyPart.PartOption.face:
+                    Monster.transform.GetChild(1).GetComponent<Image>().sprite = selectionImg.sprite;
+                    Monster.transform.GetChild(1).GetComponent<Image>().color = temp;
+                    break;
+                case BodyPart.PartOption.body:
+                    Monster.transform.GetChild(2).GetComponent<Image>().sprite = selectionImg.sprite;
+                    Monster.transform.GetChild(2).GetComponent<Image>().color = temp;
+                    break;
+                case BodyPart.PartOption.arm:
+                    Monster.transform.GetChild(4).GetComponent<Image>().sprite = selectionImg.sprite;
+                    Monster.transform.GetChild(4).GetComponent<Image>().color = temp;
+                    Monster.transform.GetChild(3).GetComponent<Image>().sprite = selectionImg.sprite;
+                    Monster.transform.GetChild(3).GetComponent<Image>().color = temp;
+                    Monster.transform.GetChild(3).localScale = new Vector3(-1, 1, 1);
+                    break;
+                case BodyPart.PartOption.leg:
+                    Monster.transform.GetChild(6).GetComponent<Image>().sprite = selectionImg.sprite;
+                    Monster.transform.GetChild(6).GetComponent<Image>().color = temp;
+                    Monster.transform.GetChild(5).GetComponent<Image>().sprite = selectionImg.sprite;
+                    Monster.transform.GetChild(5).GetComponent<Image>().color = temp;
+                    Monster.transform.GetChild(5).localScale = new Vector3(-1, 1, 1);
+                    break;
+
+            }
+          
+            GameObject checkbox = new GameObject();
+            checkbox.AddComponent<Image>();
+            //computerGrid.transform.GetChild(activeCellNum).gameObject.AddComponent<Image>();
+            //computerGrid.transform.GetChild(activeCellNum).gameObject.GetComponent<Image>().sprite = _checkSprite;
+
+            checkbox.GetComponent<Image>().sprite = _checkSprite;
+            checkbox.transform.SetParent(computerGrid.transform.GetChild(activeCellNum), false);
+
+        }
+
+           
+        
     }
     
 
