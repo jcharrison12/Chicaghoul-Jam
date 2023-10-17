@@ -8,6 +8,7 @@ public class Walking : MonoBehaviour
 
     public List<BodyPart> bpOptions;
 
+    BodyPartManager bodyPartManager;
     Animator anim;
     Vector2 movement;
 
@@ -79,10 +80,10 @@ public class Walking : MonoBehaviour
     {
         if(dugUpGrave != null)
 		{
-            DigInteract digInteract = dugUpGrave.GetComponent<DigInteract>();
-            if(!digInteract.dugUp)
+            Dug dug = dugUpGrave.GetComponent<Dug>();
+            if(!dug.dug)
 			{
-                digInteract.dugUp = true;
+                dug.dug = true;
                 GenerateRandomBodyPart();
                 Debug.Log("BODY PART DUG UP");
             }
@@ -123,6 +124,9 @@ public class Walking : MonoBehaviour
 
     void AddBodyPart(BodyPart newBodyPart)
     {
+        BodyPartInstance bp = new BodyPartInstance();
+        bp.bpType = newBodyPart;
+        bodyPartManager.AddItem(bp);
     }
 
     void ShowBodyPart(BodyPart newBodyPart)
