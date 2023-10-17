@@ -200,7 +200,10 @@ public class Walking : MonoBehaviour
                 break;
             case TerryBehavior.Digging:
                 Debug.Log("Digging");
-                anim.Play("Digging-right");
+                if (movement.x > 0)
+                    anim.Play("Digging-right");
+                else
+                    anim.Play("Digging-left");
                 break;
 
 		}
