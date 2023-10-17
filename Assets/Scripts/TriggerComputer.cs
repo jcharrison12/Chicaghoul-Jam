@@ -66,13 +66,15 @@ public class TriggerComputer : MonoBehaviour
 
     }
 
-    private void ClosePanel()
+    public void ClosePanel()
     {
+        gridlogic.RemoveBodyParts();
         monsterGUI.gameObject.SetActive(false);
         customSession = false;
         computerOpen = true;
         promptcanvas.gameObject.SetActive(true);
         prompt.gameObject.SetActive(true);
         player.gameObject.SetActive(true);
+       
     }
 }
