@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 public class Walking : MonoBehaviour
 {
-    public float maxDigTime = 3f;
+    public float maxDigTime = 2f;
+    public float maxBodyPartShow = 1.5f;
+    public float maxStunTime = .5f;
 
 
     public List<BodyPart> bpOptions;
@@ -20,11 +24,20 @@ public class Walking : MonoBehaviour
 
     private TerryBehavior currentBehavior = TerryBehavior.None;
     private float currentDigTime = 0;
+    private float currentStunTime = 0;
     private GameObject dugUpGrave = null;
+
+    private GameObject partSprite;
+    private float currentBodyPartShow = 0;
+    private bool displayBodyPart = false;
 
     public void Start()
     {
         anim = GetComponent<Animator>();
+        bodyPartManager = GetComponent<BodyPartManager>();
+
+
+        partSprite = GameObject.Find("BodyPartDugUp");  
     }
 
     public void Update()
@@ -42,9 +55,13 @@ public class Walking : MonoBehaviour
                 {
                     movement.y = 0;
                 }
-                if (Input.GetKey(KeyCode.F))
+                if(currentStunTime > 0)
+				{
+                    Debug.Log("stunned...");
+                    currentStunTime -= Time.deltaTime;
+				}
+                else if (Input.GetKey(KeyCode.F))
                 {
-                    Debug.Log("key down");
                     currentBehavior = TerryBehavior.Digging;
                 }
                 break;
@@ -58,13 +75,31 @@ public class Walking : MonoBehaviour
                 }
                 if (!Input.GetKey(KeyCode.F))
                 {
-                    Debug.Log("key up");
                     StopDigging();
                 }
                 break;
         }
-//<<<<<<< HEAD
+        //<<<<<<< HEAD
+
+
+        DisplayBodyPart();
     }
+
+    private void DisplayBodyPart()
+	{
+        if(displayBodyPart)
+		{
+            currentBodyPartShow += Time.deltaTime;
+            if(currentBodyPartShow < maxBodyPartShow)
+			{
+
+                var opacity = partSprite.GetComponent<SpriteRenderer>().color;
+                opacity.a = 1 - (currentBodyPartShow / maxBodyPartShow);
+                partSprite.GetComponent<SpriteRenderer>().color = opacity;
+            }
+		}
+	}
+
 
     private void StopDigging()
 	{
@@ -72,8 +107,6 @@ public class Walking : MonoBehaviour
         currentDigTime = 0;
         anim.StopPlayback();
         anim.Rebind();
-        anim.SetFloat("Digging-right", 0);
-        Debug.Log("STOPPPPPPPPPPPPPPP!!");
     }
 
     private void TerryDigsUpBodyPart()
@@ -85,29 +118,42 @@ public class Walking : MonoBehaviour
 			{
                 dug.dug = true;
                 GenerateRandomBodyPart();
-                Debug.Log("BODY PART DUG UP");
             }
         }
+		else
+		{
+            displayBodyPart = false;
+		}
     }
 
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        Debug.Log("GameObject2 collided with " + col.name);
-        if(col.gameObject.tag == "Grave")
+        if (col.gameObject.tag == "Grave")
             dugUpGrave = col.gameObject;
     }
 
     void OnTriggerExit2D(Collider2D col)
     {
-        Debug.Log("GameObject2 collided with " + col.name);
         dugUpGrave = null;
     }
 
-    private void GenerateRandomBodyPart()
+	void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.tag == "Enemy")
+        {
+            Debug.Log("HIT BY ENEMY");
+            currentStunTime = maxStunTime;
+            StopDigging();
+            //SOUND - play hit by ghost sound
+        }
+    }
+
+	private void GenerateRandomBodyPart()
     {
         int randomNumber = Random.Range(0, 5);
         BodyPart.PartOption tempPart = (BodyPart.PartOption)randomNumber;
+        Debug.Log("temp part" + tempPart);
         BodyPart newBodyPart = ScriptableObject.CreateInstance<BodyPart>();
         List<BodyPart> results = bpOptions.FindAll(
           delegate (BodyPart bp)
@@ -119,20 +165,28 @@ public class Walking : MonoBehaviour
         newBodyPart = results[Random.Range(0, results.Count)];
         Debug.Log(newBodyPart);
         AddBodyPart(newBodyPart);
-        ShowBodyPart(newBodyPart);
+        ShowNewBodyPart(newBodyPart);
     }
 
     void AddBodyPart(BodyPart newBodyPart)
     {
+        Debug.Log("newbodypart " + newBodyPart);
         BodyPartInstance bp = new BodyPartInstance();
         bp.bpType = newBodyPart;
+        Debug.Log("bp " + bp);
         bodyPartManager.AddItem(bp);
     }
 
-    void ShowBodyPart(BodyPart newBodyPart)
-	{
-
-	}
+    void ShowNewBodyPart(BodyPart newBodyPart)
+    {
+        partSprite.GetComponent<SpriteRenderer>().sprite = newBodyPart.icon;
+        partSprite.transform.position = GameObject.FindGameObjectWithTag("Player").transform.position;
+        var opacity = partSprite.GetComponent<SpriteRenderer>().color;
+        opacity.a = 1.0f;
+        partSprite.GetComponent<SpriteRenderer>().color = opacity;
+        currentBodyPartShow = 0; //reset the timer to show it for 1 second
+        displayBodyPart = true;
+    }
 
 
     public void FixedUpdate()

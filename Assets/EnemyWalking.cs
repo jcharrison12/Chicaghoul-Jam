@@ -9,7 +9,7 @@ public class EnemyWalking : MonoBehaviour
 
     public void Start()
     {
-        anim = GetComponent<Animator>();
+      //  anim = GetComponent<Animator>();
     }
 
     public void Update()
@@ -19,8 +19,8 @@ public class EnemyWalking : MonoBehaviour
 
     public void FixedUpdate()
     {
-        anim.SetFloat("horizontal_axis", movement.x);
-        anim.SetFloat("vertical_axis", movement.y);
+    //    anim.SetFloat("horizontal_axis", movement.x);
+  //      anim.SetFloat("vertical_axis", movement.y);
     }
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
