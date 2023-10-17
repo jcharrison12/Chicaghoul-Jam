@@ -6,8 +6,8 @@ public class LabMusic : MonoBehaviour
 {
 
     private AudioSource source;
-    public int startSample;
-    public int endSample;
+    public int startSample = 0;
+    public int endSample = 5757952;
     //private bool isPlaying = false;
 
     // Start is called before the first frame update
@@ -15,7 +15,7 @@ public class LabMusic : MonoBehaviour
     {
         source = GetComponent<AudioSource>();
         //startSample = source.timeSamples = 0;
-        endSample = source.timeSamples = 5757952;
+        //endSample = source.timeSamples = 5757952;
         
     }
 
@@ -28,7 +28,7 @@ public class LabMusic : MonoBehaviour
         //isPlaying = true;
         if (source.timeSamples >= endSample)
         {
-            startSample = source.timeSamples = 335872;
+            startSample = 335872;
             source.timeSamples = startSample + (source.timeSamples - endSample);
         }
     }
