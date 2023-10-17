@@ -14,6 +14,7 @@ public class CharController : MonoBehaviour
     public float maxMovementTime = 3f; //how long the enemy will walk before changing direction
 
     private MovementPath currentMovementPath = MovementPath.CirclePath;
+    private SpriteRenderer sprite;
 
     private Vector2 movement; //public so EnemyWalking.cs can access it
 
@@ -64,7 +65,14 @@ public class CharController : MonoBehaviour
 	public void Start()
 	{
         currentMovementPath = originalMovementPath;
+        sprite = GetComponent<SpriteRenderer>();
     }
+
+    private void ChangeColor(Color NewColor)
+	{
+        sprite.color = NewColor;
+    }
+
 
 	void Update()
     {
@@ -85,6 +93,7 @@ public class CharController : MonoBehaviour
                 else
 				{
                     //stop chasing and switch back to original movement
+                    ChangeColor(Color.white);
                     currentMovementPath = originalMovementPath;
                 }
                 break;
@@ -92,6 +101,8 @@ public class CharController : MonoBehaviour
                 //Check if the player happens to be within sight of this enemy, then switch to chasing mode             
                 if (WithinSight(targetPosition, currentPosition, currentDirection, visionRadius))
                 {
+                    Debug.Log("Chase!");
+                    ChangeColor(Color.red);
                     currentMovementTime = 0;
                     currentMovementPath = MovementPath.ChaseTarget;
                 }
@@ -178,19 +189,15 @@ public class CharController : MonoBehaviour
         switch (currentDirection)
         {
             case CharacterFacing.Up:
-                Debug.Log("change");
                 currentDirection = CharacterFacing.Right;
                 break;
             case CharacterFacing.Right:
-                Debug.Log("change");
                 currentDirection = CharacterFacing.Down;
                 break;
             case CharacterFacing.Down:
-                Debug.Log("change");
                 currentDirection = CharacterFacing.Left;
                 break;
             case CharacterFacing.Left:
-                Debug.Log("change");
                 currentDirection = CharacterFacing.Up;
                 break;
         }

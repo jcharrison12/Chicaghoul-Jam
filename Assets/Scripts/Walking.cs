@@ -1,16 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SearchService;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
 public class Walking : MonoBehaviour
 {
-    public float maxDigTime = 3f;
+    public float maxDigTime = 2f;
+    public float maxBodyPartShow = 1.5f;
+    public float maxStunTime = .5f;
 
 
+    public List<BodyPart> bpOptions;
+
+    BodyPartManager bodyPartManager;
     Animator anim;
     Vector2 movement;
-    public UnityEngine.SceneManagement.Scene scene;
 
     public enum TerryBehavior
     {
@@ -20,11 +24,20 @@ public class Walking : MonoBehaviour
 
     private TerryBehavior currentBehavior = TerryBehavior.None;
     private float currentDigTime = 0;
+    private float currentStunTime = 0;
+    private GameObject dugUpGrave = null;
+
+    private GameObject partSprite;
+    private float currentBodyPartShow = 0;
+    private bool displayBodyPart = false;
 
     public void Start()
     {
         anim = GetComponent<Animator>();
-        scene = SceneManager.GetActiveScene();
+        bodyPartManager = GetComponent<BodyPartManager>();
+
+
+        partSprite = GameObject.Find("BodyPartDugUp");  
     }
 
     public void Update()
@@ -42,33 +55,51 @@ public class Walking : MonoBehaviour
                 {
                     movement.y = 0;
                 }
-                if (Input.GetKey(KeyCode.F) && (scene.name == "graveyard-scene1"))
+                if(currentStunTime > 0)
+				{
+                    Debug.Log("stunned...");
+                    currentStunTime -= Time.deltaTime;
+				}
+                else if (Input.GetKey(KeyCode.F))
                 {
-                    Debug.Log("key down");
                     currentBehavior = TerryBehavior.Digging;
                 }
                 break;
             case TerryBehavior.Digging:
-                
-                
-                    float elapsed = Time.deltaTime;
-                    currentDigTime += elapsed;
-                    if (currentDigTime >= maxDigTime)
-                    {
-                        TerryDigsUpBodyPart();
-                        currentDigTime = 0;
-                    }
-                    if (!Input.GetKey(KeyCode.F))
-                    {
-                        Debug.Log("key up");
-                        StopDigging();
-                    }
-                
-                    break;
-                
+                float elapsed = Time.deltaTime;
+                currentDigTime += elapsed;
+                if (currentDigTime >= maxDigTime)
+                {
+                    TerryDigsUpBodyPart();
+                    currentDigTime = 0;
+                }
+                if (!Input.GetKey(KeyCode.F))
+                {
+                    StopDigging();
+                }
+                break;
         }
-//<<<<<<< HEAD
+        //<<<<<<< HEAD
+
+
+        DisplayBodyPart();
     }
+
+    private void DisplayBodyPart()
+	{
+        if(displayBodyPart)
+		{
+            currentBodyPartShow += Time.deltaTime;
+            if(currentBodyPartShow < maxBodyPartShow)
+			{
+
+                var opacity = partSprite.GetComponent<SpriteRenderer>().color;
+                opacity.a = 1 - (currentBodyPartShow / maxBodyPartShow);
+                partSprite.GetComponent<SpriteRenderer>().color = opacity;
+            }
+		}
+	}
+
 
     private void StopDigging()
 	{
@@ -76,42 +107,103 @@ public class Walking : MonoBehaviour
         currentDigTime = 0;
         anim.StopPlayback();
         anim.Rebind();
-        anim.SetFloat("Digging-right", 0);
-        Debug.Log("STOPPPPPPPPPPPPPPP!!");
     }
 
     private void TerryDigsUpBodyPart()
     {
-        StopDigging();
-        Debug.Log("BODY PART DUG UP");
-//=======
-        if (movement.x != 0)
-        {
-            movement.y = 0;
+        if(dugUpGrave != null)
+		{
+            Dug dug = dugUpGrave.GetComponent<Dug>();
+            if(!dug.dug)
+			{
+                dug.dug = true;
+                GenerateRandomBodyPart();
+            }
         }
-        
- //Detect when the A arrow key is pressed down
-        if (Input.GetKeyDown(KeyCode.R))
-            Debug.Log("A key was pressed.");
-
-        //Detect when the A arrow key has been released
-        if (Input.GetKeyUp(KeyCode.R))
-            Debug.Log("A key was released.");
-//>>>>>>> main
+		else
+		{
+            displayBodyPart = false;
+		}
     }
+
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.tag == "Grave")
+            dugUpGrave = col.gameObject;
+    }
+
+    void OnTriggerExit2D(Collider2D col)
+    {
+        dugUpGrave = null;
+    }
+
+	void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.tag == "Enemy")
+        {
+            Debug.Log("HIT BY ENEMY");
+            currentStunTime = maxStunTime;
+            StopDigging();
+            //SOUND - play hit by ghost sound
+        }
+    }
+
+	private void GenerateRandomBodyPart()
+    {
+        int randomNumber = Random.Range(0, 5);
+        BodyPart.PartOption tempPart = (BodyPart.PartOption)randomNumber;
+        Debug.Log("temp part" + tempPart);
+        BodyPart newBodyPart = ScriptableObject.CreateInstance<BodyPart>();
+        List<BodyPart> results = bpOptions.FindAll(
+          delegate (BodyPart bp)
+          {
+              return bp.part == tempPart;
+          }
+          );
+        Debug.Log("results " + results.Count + " " + results);
+        newBodyPart = results[Random.Range(0, results.Count)];
+        Debug.Log(newBodyPart);
+        AddBodyPart(newBodyPart);
+        ShowNewBodyPart(newBodyPart);
+    }
+
+    void AddBodyPart(BodyPart newBodyPart)
+    {
+        Debug.Log("newbodypart " + newBodyPart);
+        BodyPartInstance bp = new BodyPartInstance();
+        bp.bpType = newBodyPart;
+        Debug.Log("bp " + bp);
+        bodyPartManager.AddItem(bp);
+    }
+
+    void ShowNewBodyPart(BodyPart newBodyPart)
+    {
+        partSprite.GetComponent<SpriteRenderer>().sprite = newBodyPart.icon;
+        partSprite.transform.position = GameObject.FindGameObjectWithTag("Player").transform.position;
+        var opacity = partSprite.GetComponent<SpriteRenderer>().color;
+        opacity.a = 1.0f;
+        partSprite.GetComponent<SpriteRenderer>().color = opacity;
+        currentBodyPartShow = 0; //reset the timer to show it for 1 second
+        displayBodyPart = true;
+    }
+
 
     public void FixedUpdate()
     {
         switch(currentBehavior)
 		{
             case TerryBehavior.None:
-                //Debug.Log("Walking");
+                Debug.Log("Walking");
                 anim.SetFloat("horizontal_axis", movement.x);
                 anim.SetFloat("vertical_axis", movement.y);
                 break;
             case TerryBehavior.Digging:
                 Debug.Log("Digging");
-                anim.Play("Digging-right");
+                if (movement.x > 0)
+                    anim.Play("Digging-right");
+                else
+                    anim.Play("Digging-left");
                 break;
 
 		}
