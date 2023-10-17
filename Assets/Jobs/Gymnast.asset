@@ -12,11 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fffeea48c00344654a02964929c89a08, type: 3}
   m_Name: Gymnast
   m_EditorClassIdentifier: 
-  id: 1
   title: Gymnast
-  description: 
-  brainMin: 0
-  faceMin: 0
-  armMin: 2
-  bodyMin: 2
-  legMin: 2
+  description: Premier athletes only.
+  mins: 0000000000000000020000000200000002000000

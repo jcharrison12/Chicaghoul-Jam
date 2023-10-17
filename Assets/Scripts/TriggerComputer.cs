@@ -11,12 +11,17 @@ public class TriggerComputer : MonoBehaviour
     public bool computerOpen;
     public bool customSession;
     public CustomizeSelection gridlogic;
+
+    private AudioSource myAudio;
+    public AudioClip pcStartup, pcShutdown;
+
     // Start is called before the first frame update
     void Start()
     {
         promptcanvas.gameObject.SetActive(false);
         prompt.gameObject.SetActive(false);
         monsterGUI.gameObject.SetActive(false);
+        myAudio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -55,6 +60,7 @@ public class TriggerComputer : MonoBehaviour
 
     private void CustomPanel()
     {
+        myAudio.PlayOneShot(pcStartup);
         monsterGUI.gameObject.SetActive(true);
         customSession = true;
         computerOpen = false;
@@ -66,13 +72,16 @@ public class TriggerComputer : MonoBehaviour
 
     }
 
-    private void ClosePanel()
+    public void ClosePanel()
     {
+        gridlogic.RemoveBodyParts();
+        myAudio.PlayOneShot(pcShutdown, 1);
         monsterGUI.gameObject.SetActive(false);
         customSession = false;
         computerOpen = true;
         promptcanvas.gameObject.SetActive(true);
         prompt.gameObject.SetActive(true);
         player.gameObject.SetActive(true);
+       
     }
 }
