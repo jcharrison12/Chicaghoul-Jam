@@ -14,10 +14,14 @@ public class CustomizeSelection : MonoBehaviour
     public List<BodyPart> bpScores = new List<BodyPart>();
     public Sprite _checkSprite;
 
+    private AudioSource myAudio;
+    public AudioClip partSelect, partPlacement;
+
     // Start is called before the first frame update
     void Awake()
     {   //this code is for testing with random body parts, final code will take body parts from inventory script
-        
+
+        myAudio = GetComponent<AudioSource>();
         for (int i = 0; i < 5; i++)
         {
             BodyPart.PartOption tempEnum = (BodyPart.PartOption)i;
@@ -85,6 +89,7 @@ public class CustomizeSelection : MonoBehaviour
         {
             if (activeCellNum % 4 != 0)
             {
+                myAudio.PlayOneShot(partSelect);
                 var tempa = computerGrid.transform.GetChild(activeCellNum).GetChild(0).GetComponent<Image>().color;
                 tempa.a = .3f;
                 computerGrid.transform.GetChild(activeCellNum).GetChild(0).GetComponent<Image>().color = tempa;
@@ -95,6 +100,7 @@ public class CustomizeSelection : MonoBehaviour
         {
             if((activeCellNum + 1)% 4 != 0 && (activeCellNum + 1) < inventoryList.Count-1)
             {
+                myAudio.PlayOneShot(partSelect);
                 var tempa = computerGrid.transform.GetChild(activeCellNum).GetChild(0).GetComponent<Image>().color;
                 tempa.a = .3f;
                 computerGrid.transform.GetChild(activeCellNum).GetChild(0).GetComponent<Image>().color = tempa;
@@ -106,6 +112,7 @@ public class CustomizeSelection : MonoBehaviour
         {
             if(activeCellNum > 3)
             {
+                myAudio.PlayOneShot(partSelect);
                 var tempa = computerGrid.transform.GetChild(activeCellNum).GetChild(0).GetComponent<Image>().color;
                 tempa.a = .3f;
                 computerGrid.transform.GetChild(activeCellNum).GetChild(0).GetComponent<Image>().color = tempa;
@@ -116,6 +123,7 @@ public class CustomizeSelection : MonoBehaviour
         {
             if (activeCellNum < inventoryList.Count && (activeCellNum + 4) < inventoryList.Count)
             {
+                myAudio.PlayOneShot(partSelect);
                 var tempa = computerGrid.transform.GetChild(activeCellNum).GetChild(0).GetComponent<Image>().color;
                 tempa.a = .3f;
                 computerGrid.transform.GetChild(activeCellNum).GetChild(0).GetComponent<Image>().color = tempa;
@@ -134,6 +142,7 @@ public class CustomizeSelection : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Space))
         {
+            myAudio.PlayOneShot(partPlacement);
             BodyPart.PartOption BPslot;
             var selectionImg = computerGrid.transform.GetChild(activeCellNum).GetChild(0).GetComponent<Image>();
             //var flipped = computerGrid.transform.GetChild(activeCellNum).GetChild(0).GetComponent<SpriteRenderer>().flipY;
