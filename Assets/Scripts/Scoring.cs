@@ -49,7 +49,14 @@ public class Scoring : MonoBehaviour
             {
                 return bp.part == tempEnum;
             });
-            pointInt.Add(temp.quality);  
+            if (temp != null)
+            {
+                pointInt.Add(temp.quality);
+            }
+            else
+            {
+                pointInt.Add(-1);
+            }
         }
         for(int i= 0; i < pointInt.Count; i++)
         {

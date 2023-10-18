@@ -12,7 +12,7 @@ public class Walking : MonoBehaviour
 
     public List<BodyPart> bpOptions;
 
-    BodyPartManager bodyPartManager;
+    public InventoryPlayer bodyPartManager;
     Animator anim;
     Vector2 movement;
 
@@ -34,7 +34,7 @@ public class Walking : MonoBehaviour
     public void Start()
     {
         anim = GetComponent<Animator>();
-        bodyPartManager = GetComponent<BodyPartManager>();
+        bodyPartManager = GetComponent<InventoryPlayer>();
 
 
         partSprite = GameObject.Find("BodyPartDugUp");  
@@ -171,10 +171,10 @@ public class Walking : MonoBehaviour
     void AddBodyPart(BodyPart newBodyPart)
     {
         Debug.Log("newbodypart " + newBodyPart);
-        BodyPartInstance bp = new BodyPartInstance();
-        bp.bpType = newBodyPart;
-        Debug.Log("bp " + bp);
-        bodyPartManager.AddItem(bp);
+        //BodyPartInstance bp = new BodyPartInstance();
+        //bp.bpType = newBodyPart;
+        //Debug.Log("bp " + bp);
+        bodyPartManager.AddItem(newBodyPart);
     }
 
     void ShowNewBodyPart(BodyPart newBodyPart)
