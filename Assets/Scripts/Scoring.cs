@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Scoring : MonoBehaviour
 {
@@ -10,10 +11,12 @@ public class Scoring : MonoBehaviour
     public JobInstance jobInst;
     //public Jobs job;
     public TextMeshProUGUI boss;
+
     // Start is called before the first frame update
     void Start()
     {
         DontDestroyOnLoad(this.gameObject);
+    
         //jobInst = new JobInstance();
         //job = ScriptableObject.CreateInstance<Jobs>();
         //job = jobInst.jobData;
@@ -37,7 +40,7 @@ public class Scoring : MonoBehaviour
     }
     public void ScorePoints()
     {
-        boss = FindFirstObjectByType<TextMeshProUGUI>();
+        boss = GameObject.Find("Boss Speech").GetComponent<TextMeshProUGUI>();
         //BodyPart.PartOption tempEnum = (BodyPart.PartOption)i;
         int points = 0;
         List<int> pointInt = new List<int>();
@@ -80,4 +83,5 @@ public class Scoring : MonoBehaviour
         }
     }
     
+  
 }
