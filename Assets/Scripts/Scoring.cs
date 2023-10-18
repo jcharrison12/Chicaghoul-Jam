@@ -12,11 +12,15 @@ public class Scoring : MonoBehaviour
     //public Jobs job;
     public TextMeshProUGUI boss;
 
+    private AudioSource myAudio;
+    public AudioClip youWin;
+
     // Start is called before the first frame update
     void Start()
     {
         DontDestroyOnLoad(this.gameObject);
-    
+        myAudio = GetComponent<AudioSource>();
+
         //jobInst = new JobInstance();
         //job = ScriptableObject.CreateInstance<Jobs>();
         //job = jobInst.jobData;
@@ -74,11 +78,13 @@ public class Scoring : MonoBehaviour
         }
         else if(points >= 2 && points <=3)
         {
+            myAudio.PlayOneShot(youWin);
             boss.text = "Welcome to the team. You'll do, I guess.";
 
         }
         else if(points >= 4)
         {
+            myAudio.PlayOneShot(youWin);
             boss.text = "Congratulations! Welcome to the team! You were the best applicant!";
         }
     }

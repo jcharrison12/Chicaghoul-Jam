@@ -20,7 +20,7 @@ public class CustomizeSelection : MonoBehaviour
     
 
     private AudioSource myAudio;
-    public AudioClip partSelect, partPlacement;
+    public AudioClip partSelect, partPlacement, pcConfirm;
 
     // Start is called before the first frame update
     void Awake()
@@ -316,7 +316,7 @@ public class CustomizeSelection : MonoBehaviour
     { 
         if (Input.GetKeyDown(KeyCode.Return))
         {
-
+            myAudio.PlayOneShot(pcConfirm);
             scoreScript.scores = bpScores;
             computerUI.ClosePanel();
             StartCoroutine(scoreScript.Waiting());

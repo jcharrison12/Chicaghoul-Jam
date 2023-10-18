@@ -31,10 +31,15 @@ public class Walking : MonoBehaviour
     private float currentBodyPartShow = 0;
     private bool displayBodyPart = false;
 
+    private AudioSource myAudio;
+    public AudioClip digSound, getBodyPart;
+
     public void Start()
     {
         anim = GetComponent<Animator>();
         bodyPartManager = GetComponent<InventoryPlayer>();
+
+        myAudio = GetComponent<AudioSource>();
 
 
         partSprite = GameObject.Find("BodyPartDugUp");  
@@ -63,6 +68,7 @@ public class Walking : MonoBehaviour
                 else if (Input.GetKey(KeyCode.F))
                 {
                     currentBehavior = TerryBehavior.Digging;
+                    myAudio.PlayOneShot(digSound);
                 }
                 break;
             case TerryBehavior.Digging:
@@ -88,7 +94,7 @@ public class Walking : MonoBehaviour
     private void DisplayBodyPart()
 	{
         if(displayBodyPart)
-		{
+        { 
             currentBodyPartShow += Time.deltaTime;
             if(currentBodyPartShow < maxBodyPartShow)
 			{
@@ -111,7 +117,8 @@ public class Walking : MonoBehaviour
 
     private void TerryDigsUpBodyPart()
     {
-        if(dugUpGrave != null)
+        myAudio.PlayOneShot(getBodyPart);
+        if (dugUpGrave != null)
 		{
             Dug dug = dugUpGrave.GetComponent<Dug>();
             if(!dug.dug)

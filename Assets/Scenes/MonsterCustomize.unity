@@ -3746,6 +3746,7 @@ MonoBehaviour:
   scoreScript: {fileID: 0}
   partSelect: {fileID: 8300000, guid: 92cea85307a1841ad95d9b301079ab80, type: 3}
   partPlacement: {fileID: 8300000, guid: bf4b5dd34ffde4e14b1e89fbe4a4b76b, type: 3}
+  pcConfirm: {fileID: 8300000, guid: 52bcaff7c57a24e948d8448e1bb514ab, type: 3}
 --- !u!1 &188502470
 GameObject:
   m_ObjectHideFlags: 0
@@ -5511,7 +5512,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 4.5
+  orthographic size: 6.75
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -8411,6 +8412,8 @@ MonoBehaviour:
   maxStunTime: 0.5
   bpOptions: []
   bodyPartManager: {fileID: 0}
+  digSound: {fileID: 0}
+  getBodyPart: {fileID: 0}
 --- !u!210 &1357174666
 SortingGroup:
   m_ObjectHideFlags: 0
