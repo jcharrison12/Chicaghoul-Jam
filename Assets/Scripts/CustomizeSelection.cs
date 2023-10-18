@@ -154,6 +154,7 @@ public class CustomizeSelection : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Space))
         {
+            var tempPart = ScriptableObject.CreateInstance<BodyPart>();
             myAudio.PlayOneShot(partPlacement);
             BodyPart.PartOption BPslot;
             var selectionImg = computerGrid.transform.GetChild(activeCellNum).GetChild(0).GetComponent<Image>();
@@ -165,49 +166,124 @@ public class CustomizeSelection : MonoBehaviour
             switch (BPslot)
             {
                 case BodyPart.PartOption.brain:
-                    Monster.transform.GetChild(0).gameObject.AddComponent<BodyPartInstance>();
-                    Monster.transform.GetChild(0).gameObject.GetComponent<BodyPartInstance>().bpType = selection.bpType;
-                    Monster.transform.GetChild(0).GetComponent<Image>().sprite = selectionImg.sprite;
-                    Monster.transform.GetChild(0).GetComponent<Image>().color = temp;
-                    bpScores.Add(selection.bpType);
-                    break;
+                    if (Monster.transform.GetChild(0).gameObject.GetComponent<BodyPartInstance>() == null)
+                    {
+                        Monster.transform.GetChild(0).gameObject.AddComponent<BodyPartInstance>();
+                        Monster.transform.GetChild(0).gameObject.GetComponent<BodyPartInstance>().bpType = selection.bpType;
+                        Monster.transform.GetChild(0).GetComponent<Image>().sprite = selectionImg.sprite;
+                        Monster.transform.GetChild(0).GetComponent<Image>().color = temp;
+                        bpScores.Add(selection.bpType);
+                    }
+                    else
+                    {
+                        tempPart = Monster.transform.GetChild(0).gameObject.GetComponent<BodyPartInstance>().bpType;
+                        Monster.transform.GetChild(0).gameObject.GetComponent<BodyPartInstance>().bpType = selection.bpType;
+                        Monster.transform.GetChild(0).GetComponent<Image>().sprite = selectionImg.sprite;
+                        Monster.transform.GetChild(0).GetComponent<Image>().color = temp;
+                        bpScores.Remove(tempPart);
+                        bpScores.Add(selection.bpType);
+                    }
+                        break;
+                    
                 case BodyPart.PartOption.face:
-                    Monster.transform.GetChild(1).gameObject.AddComponent<BodyPartInstance>();
-                    Monster.transform.GetChild(1).gameObject.GetComponent<BodyPartInstance>().bpType = selection.bpType;
-                    Monster.transform.GetChild(1).GetComponent<Image>().sprite = selectionImg.sprite;
-                    Monster.transform.GetChild(1).GetComponent<Image>().color = temp;
-                    bpScores.Add(selection.bpType);
+                    if (Monster.transform.GetChild(1).gameObject.GetComponent<BodyPartInstance>() == null)
+                    {
+                        Monster.transform.GetChild(1).gameObject.AddComponent<BodyPartInstance>();
+                        Monster.transform.GetChild(1).gameObject.GetComponent<BodyPartInstance>().bpType = selection.bpType;
+                        Monster.transform.GetChild(1).GetComponent<Image>().sprite = selectionImg.sprite;
+                        Monster.transform.GetChild(1).GetComponent<Image>().color = temp;
+                        bpScores.Add(selection.bpType);
+                    }
+                    else
+                    {
+                        tempPart = Monster.transform.GetChild(1).gameObject.GetComponent<BodyPartInstance>().bpType;
+                        Monster.transform.GetChild(1).gameObject.GetComponent<BodyPartInstance>().bpType = selection.bpType;
+                        Monster.transform.GetChild(1).GetComponent<Image>().sprite = selectionImg.sprite;
+                        Monster.transform.GetChild(1).GetComponent<Image>().color = temp;
+                        bpScores.Remove(tempPart);
+                        bpScores.Add(selection.bpType);
+                    }
                     break;
                 case BodyPart.PartOption.body:
-                    Monster.transform.GetChild(2).gameObject.AddComponent<BodyPartInstance>();
-                    Monster.transform.GetChild(2).gameObject.GetComponent<BodyPartInstance>().bpType = selection.bpType;
-                    Monster.transform.GetChild(2).GetComponent<Image>().sprite = selectionImg.sprite;
-                    Monster.transform.GetChild(2).GetComponent<Image>().color = temp;
-                    bpScores.Add(selection.bpType);
+                    if (Monster.transform.GetChild(2).gameObject.GetComponent<BodyPartInstance>() == null)
+                    {
+                        Monster.transform.GetChild(2).gameObject.AddComponent<BodyPartInstance>();
+                        Monster.transform.GetChild(2).gameObject.GetComponent<BodyPartInstance>().bpType = selection.bpType;
+                        Monster.transform.GetChild(2).GetComponent<Image>().sprite = selectionImg.sprite;
+                        Monster.transform.GetChild(2).GetComponent<Image>().color = temp;
+                        bpScores.Add(selection.bpType);
+                    }
+                    else
+                    {
+                        tempPart = Monster.transform.GetChild(2).gameObject.GetComponent<BodyPartInstance>().bpType;
+                        Monster.transform.GetChild(2).gameObject.GetComponent<BodyPartInstance>().bpType = selection.bpType;
+                        Monster.transform.GetChild(2).GetComponent<Image>().sprite = selectionImg.sprite;
+                        Monster.transform.GetChild(2).GetComponent<Image>().color = temp;
+                        bpScores.Remove(tempPart);
+                        bpScores.Add(selection.bpType);
+                    }
                     break;
                 case BodyPart.PartOption.arm:
-                    Monster.transform.GetChild(4).gameObject.AddComponent<BodyPartInstance>();
-                    Monster.transform.GetChild(4).gameObject.GetComponent<BodyPartInstance>().bpType = selection.bpType;
-                    Monster.transform.GetChild(4).GetComponent<Image>().sprite = selectionImg.sprite;
-                    Monster.transform.GetChild(4).GetComponent<Image>().color = temp;
-                    Monster.transform.GetChild(3).GetComponent<Image>().sprite = selectionImg.sprite;
-                    Monster.transform.GetChild(3).GetComponent<Image>().color = temp;
-                    Monster.transform.GetChild(3).localScale = new Vector3(-1, 1, 1);
-                    bpScores.Add(selection.bpType);
+                    if (Monster.transform.GetChild(4).gameObject.GetComponent<BodyPartInstance>() == null)
+                    {
+                        Monster.transform.GetChild(4).gameObject.AddComponent<BodyPartInstance>();
+                        Monster.transform.GetChild(4).gameObject.GetComponent<BodyPartInstance>().bpType = selection.bpType;
+                        Monster.transform.GetChild(4).GetComponent<Image>().sprite = selectionImg.sprite;
+                        Monster.transform.GetChild(4).GetComponent<Image>().color = temp;
+                        Monster.transform.GetChild(3).GetComponent<Image>().sprite = selectionImg.sprite;
+                        Monster.transform.GetChild(3).GetComponent<Image>().color = temp;
+                        Monster.transform.GetChild(3).localScale = new Vector3(-1, 1, 1);
+                        bpScores.Add(selection.bpType);
+                    }
+                    else
+                    {
+                        tempPart = Monster.transform.GetChild(4).gameObject.GetComponent<BodyPartInstance>().bpType;
+                        Monster.transform.GetChild(4).gameObject.GetComponent<BodyPartInstance>().bpType = selection.bpType;
+                        Monster.transform.GetChild(4).GetComponent<Image>().sprite = selectionImg.sprite;
+                        Monster.transform.GetChild(4).GetComponent<Image>().color = temp;
+                        Monster.transform.GetChild(3).GetComponent<Image>().sprite = selectionImg.sprite;
+                        Monster.transform.GetChild(3).GetComponent<Image>().color = temp;
+                        Monster.transform.GetChild(3).localScale = new Vector3(-1, 1, 1);
+                        bpScores.Remove(tempPart);
+                        bpScores.Add(selection.bpType);
+                    }
                     break;
                 case BodyPart.PartOption.leg:
-                    Monster.transform.GetChild(6).gameObject.AddComponent<BodyPartInstance>();
-                    Monster.transform.GetChild(6).gameObject.GetComponent<BodyPartInstance>().bpType = selection.bpType;
-                    Monster.transform.GetChild(6).GetComponent<Image>().sprite = selectionImg.sprite;
-                    Monster.transform.GetChild(6).GetComponent<Image>().color = temp;
-                    Monster.transform.GetChild(5).GetComponent<Image>().sprite = selectionImg.sprite;
-                    Monster.transform.GetChild(5).GetComponent<Image>().color = temp;
-                    Monster.transform.GetChild(5).localScale = new Vector3(-1, 1, 1);
-                    bpScores.Add(selection.bpType);
+                    if (Monster.transform.GetChild(6).gameObject.GetComponent<BodyPartInstance>() == null)
+                    {
+                        Monster.transform.GetChild(6).gameObject.AddComponent<BodyPartInstance>();
+                        Monster.transform.GetChild(6).gameObject.GetComponent<BodyPartInstance>().bpType = selection.bpType;
+                        Monster.transform.GetChild(6).GetComponent<Image>().sprite = selectionImg.sprite;
+                        Monster.transform.GetChild(6).GetComponent<Image>().color = temp;
+                        Monster.transform.GetChild(5).GetComponent<Image>().sprite = selectionImg.sprite;
+                        Monster.transform.GetChild(5).GetComponent<Image>().color = temp;
+                        Monster.transform.GetChild(5).localScale = new Vector3(-1, 1, 1);
+                        bpScores.Add(selection.bpType);
+                    }
+                    else
+                    {
+                        tempPart = Monster.transform.GetChild(6).gameObject.GetComponent<BodyPartInstance>().bpType;
+                        Monster.transform.GetChild(6).gameObject.GetComponent<BodyPartInstance>().bpType = selection.bpType;
+                        Monster.transform.GetChild(6).GetComponent<Image>().sprite = selectionImg.sprite;
+                        Monster.transform.GetChild(6).GetComponent<Image>().color = temp;
+                        Monster.transform.GetChild(5).GetComponent<Image>().sprite = selectionImg.sprite;
+                        Monster.transform.GetChild(5).GetComponent<Image>().color = temp;
+                        Monster.transform.GetChild(5).localScale = new Vector3(-1, 1, 1);
+                        bpScores.Remove(tempPart);
+                        bpScores.Add(selection.bpType);
+                    }
                     break;
-
             }
-         
+            for(int i = 0; i < computerGrid.transform.childCount; i++)
+            {
+                if(tempPart != null && tempPart == computerGrid.transform.GetChild(i).GetChild(0).GetComponent<BodyPartInstance>().bpType)
+                {
+                    var tempColor = computerGrid.transform.GetChild(i).GetChild(1).GetComponent<Image>().color;
+                    tempColor.a = 0f;
+                    computerGrid.transform.GetChild(i).GetChild(1).GetComponent<Image>().color = tempColor;
+                    computerGrid.transform.GetChild(i).GetChild(1).GetComponent<Image>().sprite = null;
+                }
+            }
             GameObject checkbox = new GameObject();
             checkbox.AddComponent<Image>();
             //computerGrid.transform.GetChild(activeCellNum).gameObject.AddComponent<Image>();
