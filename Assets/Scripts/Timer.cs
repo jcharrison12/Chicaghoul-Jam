@@ -12,6 +12,8 @@ public class Timer : MonoBehaviour
     public Text TimerTxt;
 
     public string newGameScene;
+    public GameObject Player;
+    public GameObject persist;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +34,7 @@ public class Timer : MonoBehaviour
             else
             {
                 Debug.Log("Time is up!");
+                persist.GetComponent<BodyPartManager>().bodyParts = Player.GetComponent<InventoryPlayer>().bodyParts;
                 TimeLeft = 0;
                 TimerOn = false;
                 SceneManager.LoadScene(newGameScene);

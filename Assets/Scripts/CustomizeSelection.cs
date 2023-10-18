@@ -6,8 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class CustomizeSelection : MonoBehaviour
 {
-    private List<BodyPart> inventoryList = new List<BodyPart>();
-    public List<BodyPart> bpOptions;
+    public GameObject previousSceneObj;
+    public List<BodyPart> inventoryList = new List<BodyPart>();
+    //public List<BodyPart> bpOptions;
     public GameObject computerGrid;
     public TriggerComputer computerUI;
     public int activeCellNum = 0;
@@ -23,28 +24,30 @@ public class CustomizeSelection : MonoBehaviour
 
     // Start is called before the first frame update
     void Awake()
-    {   //this code is for testing with random body parts, final code will take body parts from inventory script
+    {
+        //{   //this code is for testing with random body parts, final code will take body parts from inventory script
         scoresObj = FindFirstObjectByType<Scoring>().gameObject;
         scoreScript = scoresObj.GetComponent<Scoring>();
-            
-        //DontDestroyOnLoad(scoresObj);
 
+        //    //DontDestroyOnLoad(scoresObj);
+        previousSceneObj = FindFirstObjectByType<BodyPartManager>().gameObject;
+        inventoryList = previousSceneObj.GetComponent<BodyPartManager>().bodyParts;
         myAudio = GetComponent<AudioSource>();
-        for (int i = 0; i < 5; i++)
-        {
-            BodyPart.PartOption tempEnum = (BodyPart.PartOption)i;
-            BodyPart temp = ScriptableObject.CreateInstance<BodyPart>();
-            List<BodyPart> results = bpOptions.FindAll(
-              delegate (BodyPart bp)
-              {
-                  return bp.part == tempEnum;
-              }
-              );
-            temp = results[Random.Range(0, results.Count)];
-            //Debug.Log(temp);
-            inventoryList.Add(temp);
+    //    for (int i = 0; i < 5; i++)
+    //    {
+    //        BodyPart.PartOption tempEnum = (BodyPart.PartOption)i;
+    //        BodyPart temp = ScriptableObject.CreateInstance<BodyPart>();
+    //        List<BodyPart> results = bpOptions.FindAll(
+    //          delegate (BodyPart bp)
+    //          {
+    //              return bp.part == tempEnum;
+    //          }
+    //          );
+    //        temp = results[Random.Range(0, results.Count)];
+    //        //Debug.Log(temp);
+    //        inventoryList.Add(temp);
             
-        }
+        
     }
     private void Update()
     {
