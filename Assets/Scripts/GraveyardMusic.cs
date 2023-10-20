@@ -6,15 +6,16 @@ public class GraveyardMusic : MonoBehaviour
 {
     private AudioSource source;
     public int startSample = 0;
-    public int endSample = 2844672;
-    //private bool isPlaying = false;
+    public int endSample;
 
     // Start is called before the first frame update
     void Start()
     {
         source = GetComponent<AudioSource>();
-        //startSample = source.timeSamples = 0;
-        //endSample = source.timeSamples = 5757952;
+        endSample = 2610719;
+        //2609779
+        //2610719
+        //2611660**
 
     }
 
@@ -24,10 +25,9 @@ public class GraveyardMusic : MonoBehaviour
         //235520
         //2844672
         Debug.Log(source.timeSamples);
-        //isPlaying = true;
         if (source.timeSamples >= endSample)
         {
-            startSample = 235520;
+            startSample = 217324;
             source.timeSamples = startSample + (source.timeSamples - endSample);
         }
     }

@@ -7,16 +7,26 @@ public class LabMusic : MonoBehaviour
 
     private AudioSource source;
     public int startSample = 0;
-    public int endSample = 5757952;
+    public int endSample;
+    //5286355
+    //5288236**
+    //5292940
+    //5293881
+    //5294822
+    //5296703
+    //5297644**
     //private bool isPlaying = false;
 
     // Start is called before the first frame update
     void Start()
     {
         source = GetComponent<AudioSource>();
+        endSample = 5293881;
+        //5290118
+        //
         //startSample = source.timeSamples = 0;
         //endSample = source.timeSamples = 5757952;
-        
+
     }
 
     // Update is called once per frame
@@ -24,11 +34,12 @@ public class LabMusic : MonoBehaviour
     {
         //335872
         //5757952
-        //Debug.Log(source.timeSamples);
+        Debug.Log(source.timeSamples);
         //isPlaying = true;
         if (source.timeSamples >= endSample)
         {
-            startSample = 335872;
+            startSample = 312345;
+            //314227
             source.timeSamples = startSample + (source.timeSamples - endSample);
         }
     }

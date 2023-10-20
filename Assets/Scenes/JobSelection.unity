@@ -174,8 +174,8 @@ MonoBehaviour:
   scores: []
   jobInst:
     jobData: {fileID: 0}
-  job: {fileID: 0}
   boss: {fileID: 0}
+  youWin: {fileID: 8300000, guid: bd0fe687a482c41f787ace9d31ebc570, type: 3}
 --- !u!1 &1141922110
 GameObject:
   m_ObjectHideFlags: 0

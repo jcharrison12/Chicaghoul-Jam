@@ -6055,8 +6055,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22c7c8ff747294a5992faa3cd216b60b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDigTime: 3
-  maxBodyPartShow: 1.5
+  maxDigTime: 1.7
+  maxBodyPartShow: 2.5
   maxStunTime: 0.5
   bpOptions:
   - {fileID: 11400000, guid: e68b5c042dbb443d5aea6670aaca7513, type: 2}
@@ -7450,7 +7450,7 @@ Transform:
   m_GameObject: {fileID: 1660888829}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.36, y: -2, z: 0}
+  m_LocalPosition: {x: -1.36, y: -3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

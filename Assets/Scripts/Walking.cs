@@ -117,12 +117,12 @@ public class Walking : MonoBehaviour
 
     private void TerryDigsUpBodyPart()
     {
-        myAudio.PlayOneShot(getBodyPart);
         if (dugUpGrave != null)
 		{
             Dug dug = dugUpGrave.GetComponent<Dug>();
             if(!dug.dug)
 			{
+                myAudio.PlayOneShot(getBodyPart);
                 dug.dug = true;
                 GenerateRandomBodyPart();
             }

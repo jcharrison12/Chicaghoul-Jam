@@ -6487,7 +6487,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startSample: 0
-  endSample: 5757952
+  endSample: 5293881
 --- !u!1 &871979872
 GameObject:
   m_ObjectHideFlags: 0
