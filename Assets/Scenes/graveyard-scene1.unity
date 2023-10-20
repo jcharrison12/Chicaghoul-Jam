@@ -1520,6 +1520,8 @@ GameObject:
   - component: {fileID: 280432441}
   - component: {fileID: 280432440}
   - component: {fileID: 280432439}
+  - component: {fileID: 280432443}
+  - component: {fileID: 280432442}
   m_Layer: 0
   m_Name: grave-plot (5)
   m_TagString: Untagged
@@ -1615,6 +1617,31 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &280432442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 280432438}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a859933ded4446f889ba264f95ed460, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sorter: {fileID: 0}
+--- !u!210 &280432443
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 280432438}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: -90
+  m_SortAtRoot: 1
 --- !u!1 &292404710 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6207314464133669391, guid: 534fa2489cd81b34298b93dffcb77456, type: 3}
@@ -1656,6 +1683,8 @@ GameObject:
   - component: {fileID: 378893823}
   - component: {fileID: 378893822}
   - component: {fileID: 378893821}
+  - component: {fileID: 378893825}
+  - component: {fileID: 378893824}
   m_Layer: 0
   m_Name: grave-plot (3)
   m_TagString: Untagged
@@ -1751,6 +1780,31 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &378893824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378893820}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a859933ded4446f889ba264f95ed460, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sorter: {fileID: 0}
+--- !u!210 &378893825
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378893820}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: -90
+  m_SortAtRoot: 1
 --- !u!1001 &399282683
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1833,6 +1887,8 @@ GameObject:
   - component: {fileID: 443669245}
   - component: {fileID: 443669244}
   - component: {fileID: 443669243}
+  - component: {fileID: 443669247}
+  - component: {fileID: 443669246}
   m_Layer: 0
   m_Name: grave-plot (1)
   m_TagString: Untagged
@@ -1928,6 +1984,31 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &443669246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 443669242}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a859933ded4446f889ba264f95ed460, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sorter: {fileID: 0}
+--- !u!210 &443669247
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 443669242}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: -90
+  m_SortAtRoot: 1
 --- !u!1 &468064088
 GameObject:
   m_ObjectHideFlags: 0
@@ -4762,6 +4843,8 @@ GameObject:
   - component: {fileID: 788620534}
   - component: {fileID: 788620533}
   - component: {fileID: 788620532}
+  - component: {fileID: 788620536}
+  - component: {fileID: 788620535}
   m_Layer: 0
   m_Name: grave-plot (6)
   m_TagString: Untagged
@@ -4857,6 +4940,31 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &788620535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 788620531}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a859933ded4446f889ba264f95ed460, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sorter: {fileID: 0}
+--- !u!210 &788620536
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 788620531}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: -90
+  m_SortAtRoot: 1
 --- !u!1001 &813523926
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4973,6 +5081,8 @@ GameObject:
   - component: {fileID: 848805156}
   - component: {fileID: 848805155}
   - component: {fileID: 848805154}
+  - component: {fileID: 848805158}
+  - component: {fileID: 848805157}
   m_Layer: 0
   m_Name: grave-plot (2)
   m_TagString: Untagged
@@ -5068,6 +5178,31 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &848805157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 848805153}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a859933ded4446f889ba264f95ed460, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sorter: {fileID: 0}
+--- !u!210 &848805158
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 848805153}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: -90
+  m_SortAtRoot: 1
 --- !u!1 &877405301
 GameObject:
   m_ObjectHideFlags: 0
@@ -5300,6 +5435,8 @@ GameObject:
   - component: {fileID: 904670160}
   - component: {fileID: 904670159}
   - component: {fileID: 904670158}
+  - component: {fileID: 904670162}
+  - component: {fileID: 904670161}
   m_Layer: 0
   m_Name: grave-plot (7)
   m_TagString: Untagged
@@ -5395,6 +5532,31 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &904670161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 904670157}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a859933ded4446f889ba264f95ed460, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sorter: {fileID: 0}
+--- !u!210 &904670162
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 904670157}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: -90
+  m_SortAtRoot: 1
 --- !u!1 &908264888
 GameObject:
   m_ObjectHideFlags: 0
@@ -5406,6 +5568,8 @@ GameObject:
   - component: {fileID: 908264891}
   - component: {fileID: 908264889}
   - component: {fileID: 1149314274}
+  - component: {fileID: 1149314277}
+  - component: {fileID: 1149314276}
   m_Layer: 0
   m_Name: grave-plot
   m_TagString: Untagged
@@ -5647,8 +5811,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 559.36035, y: 318.79114}
-  m_SizeDelta: {x: 168.2793, y: 86.4177}
+  m_AnchoredPosition: {x: 342.5474, y: 195.75067}
+  m_SizeDelta: {x: 93.9519, y: 48.2479}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1059783360
 MonoBehaviour:
@@ -5722,7 +5886,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -765, y: -492}
+  m_AnchoredPosition: {x: -219, y: -201.49}
   m_SizeDelta: {x: 339.6642, y: 47.0284}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1068840349
@@ -5745,7 +5909,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press F to dig
+  m_text: Hold F to dig
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5772,8 +5936,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 24
+  m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -5856,8 +6020,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 562.1, y: 318.79}
-  m_SizeDelta: {x: 208.764, y: 73.1911}
+  m_AnchoredPosition: {x: 342.55, y: 193.9}
+  m_SizeDelta: {x: 93.95, y: 44.555}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1101261732
 MonoBehaviour:
@@ -6285,6 +6449,8 @@ GameObject:
   - component: {fileID: 1123257391}
   - component: {fileID: 1123257390}
   - component: {fileID: 1123257389}
+  - component: {fileID: 1123257393}
+  - component: {fileID: 1123257392}
   m_Layer: 0
   m_Name: grave-plot (4)
   m_TagString: Untagged
@@ -6380,6 +6546,31 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1123257392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1123257388}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a859933ded4446f889ba264f95ed460, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sorter: {fileID: 0}
+--- !u!210 &1123257393
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1123257388}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: -90
+  m_SortAtRoot: 1
 --- !u!1 &1149314273
 GameObject:
   m_ObjectHideFlags: 0
@@ -6463,6 +6654,31 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1149314276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908264888}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a859933ded4446f889ba264f95ed460, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sorter: {fileID: 0}
+--- !u!210 &1149314277
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908264888}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: -90
+  m_SortAtRoot: 1
 --- !u!1001 &1159697949
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7527,7 +7743,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -7708,6 +7924,8 @@ GameObject:
   - component: {fileID: 1763796876}
   - component: {fileID: 1763796875}
   - component: {fileID: 1763796874}
+  - component: {fileID: 1763796878}
+  - component: {fileID: 1763796877}
   m_Layer: 0
   m_Name: grave-plot (8)
   m_TagString: Untagged
@@ -7803,6 +8021,31 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1763796877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1763796873}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a859933ded4446f889ba264f95ed460, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sorter: {fileID: 0}
+--- !u!210 &1763796878
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1763796873}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: -90
+  m_SortAtRoot: 1
 --- !u!1 &1776885124
 GameObject:
   m_ObjectHideFlags: 0
