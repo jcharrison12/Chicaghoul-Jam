@@ -21,9 +21,10 @@ public class LabMusic : MonoBehaviour
     void Start()
     {
         source = GetComponent<AudioSource>();
-        endSample = 5293881;
+        endSample = 5292940;
         //5290118
-        //
+        //5292940
+        //5293881**
         //startSample = source.timeSamples = 0;
         //endSample = source.timeSamples = 5757952;
 
@@ -38,7 +39,10 @@ public class LabMusic : MonoBehaviour
         //isPlaying = true;
         if (source.timeSamples >= endSample)
         {
-            startSample = 312345;
+            startSample = 311404;
+            //311404
+            //312345**
+            //313286
             //314227
             source.timeSamples = startSample + (source.timeSamples - endSample);
         }
