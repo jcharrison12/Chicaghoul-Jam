@@ -14,6 +14,7 @@ public class Scoring : MonoBehaviour
 
     private AudioSource myAudio;
     public AudioClip youWin;
+    public bool audio_enabled = true;
 
     // Start is called before the first frame update
     void Start()
@@ -32,7 +33,12 @@ public class Scoring : MonoBehaviour
         Scene activeScene = SceneManager.GetActiveScene();
         if (activeScene.name == "Interview")
         {
-            ScorePoints();
+            if (audio_enabled)
+            {
+                ScorePoints();
+                audio_enabled = false;
+            }
+            
         } 
        
     }

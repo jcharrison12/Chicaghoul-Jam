@@ -110,7 +110,7 @@ public class CustomizeSelection : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow) && computerUI.customSession)
         {
-            if((activeCellNum + 1)% 4 != 0 && (activeCellNum + 1) < inventoryList.Count-1)
+            if((activeCellNum + 1)% 4 != 0 && (activeCellNum + 1) < inventoryList.Count)
             {
                 myAudio.PlayOneShot(partSelect);
                 var tempa = computerGrid.transform.GetChild(activeCellNum).GetChild(0).GetComponent<Image>().color;
